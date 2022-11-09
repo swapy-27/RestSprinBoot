@@ -1,11 +1,16 @@
 package com.example.MicroservicesExample.Model;
 
 import java.time.LocalDate;
-import java.util.Date;
+
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 public class User {
 	private int id;
+	@Size(min=2,message="name size should be minimum of two characters")
 	private String name;
+	@Past(message="birthdate shpuld be in Past")
 	private LocalDate birthdate;
 
 	public User(int id, String name, LocalDate birthdate) {

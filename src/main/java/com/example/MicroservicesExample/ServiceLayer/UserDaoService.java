@@ -43,7 +43,5 @@ public class UserDaoService {
 		 else {
 			 throw new UserNotFoundException("no user present with given id");
 		 }
-		
-		
 	}
 }
