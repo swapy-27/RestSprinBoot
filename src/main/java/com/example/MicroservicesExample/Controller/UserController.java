@@ -2,10 +2,13 @@ package com.example.MicroservicesExample.Controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +26,8 @@ import com.example.MicroservicesExample.ServiceLayer.UserDaoService;
 public class UserController {
 	@Autowired
 	private UserDaoService userService;
-	
+	@Autowired
+	private MessageSource messageSource;
 	@GetMapping(path="/users")
 	public List<User> getAllUser() {
 		return userService.findAll();
@@ -51,5 +55,10 @@ public class UserController {
 		User user = userService.deleteById(id);
 		
 	}
-	
+	@GetMapping(path="/greeting/internationalized")
+	public String getGreetingInternationalization() {
+		
+		Locale locale = LocaleContextHolder.getLocale();
+		return messageSource.getMessage("good.morning.message", null, "Default Message",locale);
+	}
 }
